@@ -1,0 +1,8 @@
+.container {
+    padding: 0% 10% 0% 10%;
+  }
+  
+  .text,
+  .text:hover {
+    color: #e53232;
+  }
