@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import "./Login.css";
+import { AuthContext } from "../../App";
 
 export default function Login(props) {
+  const { dispatch } = React.useContext(AuthContext);
   const [NetID, setNetID] = useState("");
   const [password, setPassword] = useState("");
 
@@ -11,9 +13,13 @@ export default function Login(props) {
   }
 
   async function handleSubmit(event) {
+    event.preventDefault();
     if (!validateForm()) {
       alert("Login Failed");
     } else {
+      dispatch({
+        type: "LOGIN",
+      });
       props.history.push("/");
     }
   }
