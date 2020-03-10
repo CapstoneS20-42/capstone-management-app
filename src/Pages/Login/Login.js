@@ -54,7 +54,7 @@ onChangepassword(e) {
         headers: {
           'Content-Type': 'application/json',
         },
-        data: loginUser
+        body: JSON.stringify({data: loginUser})
       }).then((resultAxios) => {
         console.log('Results!', resultAxios)
       });
