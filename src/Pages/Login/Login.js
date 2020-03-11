@@ -9,7 +9,7 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      NetID: '',
+      username: '',
       password: ''
     };
 
@@ -21,7 +21,7 @@ class Login extends Component {
 
   onChangeNetID(e) {
     this.setState({
-        NetID: e.target.value
+        username: e.target.value
     });
 }
 
@@ -32,15 +32,15 @@ onChangepassword(e) {
 }
 
   validateForm() {
-    const {NetID,password} = this.state;
-    return NetID.length > 0 && password.length > 0;
+    const {username,password} = this.state;
+    return username.length > 0 && password.length > 0;
   }
 
   handleSubmit = async event => {
     event.preventDefault();
 
     const loginUser = {
-      NetID: this.state.NetID,
+      username: this.state.username,
       password: this.state.password
     }
 
@@ -48,17 +48,26 @@ onChangepassword(e) {
     if (!this.validateForm()) {
       alert("Login Failed");
     } else {
-      axios({
-        method: 'get',
-        url: '/api/login',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        data: loginUser
-      }).then((resultAxios) => {
-        console.log('Results!', resultAxios)
+
+      axios.post('api/login', loginUser)
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error.response);
       });
-      this.props.history.push("/");
+
+      // axios({
+      //   method: 'post',
+      //   url: '/api/login',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({data: loginUser})
+      // }).then((resultAxios) => {
+      //   console.log('Results!', resultAxios)
+      // });
+      // this.props.history.push("/");
     }
   }
 
